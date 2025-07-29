@@ -22,6 +22,78 @@ O FinTrack resolve isso centralizando todas as informações financeiras em um �
 * **Extrato Detalhado:** Visualize e filtre todas as suas transações por data, conta ou categoria.
 * **Autenticação Segura:** Cada usuário tem acesso apenas às suas próprias informações financeiras.
 
+## 💾 Modelo do Banco de Dados (DER)
+
+A estrutura do banco de dados foi projetada para ser simples e eficiente, focando nas relações essenciais para o controle financeiro.
+
+### Tabela `users`
+Armazena as informações de login de cada usuário.
+
+| Coluna | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `id` | BIGINT (PK) | Identificador único do usuário. |
+| `name` | VARCHAR | Nome do usuário. |
+| `email`| VARCHAR | E-mail de login, único. |
+| `password`| VARCHAR | Senha criptografada. |
+| `...` | ... | Outras colunas do Laravel. |
+
+### Tabela `accounts`
+Representa os locais onde o dinheiro do usuário está (ex: carteira, conta corrente).
+
+| Coluna | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `id` | BIGINT (PK) | Identificador único da conta. |
+| `user_id`| BIGINT (FK) | Vincula a conta a um `users.id`. |
+| `name` | VARCHAR | Nome da conta (ex: "Conta Corrente BB"). |
+| `type` | VARCHAR | Tipo de conta (ex: 'conta_corrente', 'carteira', 'cartao_credito'). |
+| `initial_balance`| DECIMAL | Saldo inicial no momento do cadastro da conta. |
+
+### Tabela `categories`
+Armazena as categorias de despesas e receitas do usuário.
+
+| Coluna | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `id` | BIGINT (PK) | Identificador único da categoria. |
+| `user_id`| BIGINT (FK) | Vincula a categoria a um `users.id` (para categorias personalizadas). |
+| `name` | VARCHAR | Nome da categoria (ex: "Alimentação"). |
+| `type` | ENUM('receita', 'despesa') | Define se é uma categoria de entrada ou saída. |
+
+### Tabela `transactions`
+O coração do sistema, onde cada receita e despesa é registrada.
+
+| Coluna | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `id` | BIGINT (PK) | Identificador único da transação. |
+| `user_id` | BIGINT (FK) | Vincula a transação a um `users.id`. |
+| `account_id`| BIGINT (FK) | Vincula a transação a uma `accounts.id`. |
+| `category_id`| BIGINT (FK) | Vincula a transação a uma `categories.id`. |
+| `description`| VARCHAR | Descrição do lançamento (ex: "Salário de Julho"). |
+| `amount`| DECIMAL | Valor da transação. |
+| `type` | ENUM('receita', 'despesa') | Tipo de transação. |
+| `date` | DATE | Data em que a transação ocorreu. |
+
+### Relacionamentos
+
+* **User ↔ Accounts (Um-para-Muitos)**
+    * Um `User` pode ter várias `Accounts`.
+    * Uma `Account` pertence a apenas um `User`.
+
+* **User ↔ Categories (Um-para-Muitos)**
+    * Um `User` pode ter várias `Categories` personalizadas.
+    * Uma `Category` pertence a apenas um `User`.
+
+* **User ↔ Transactions (Um-para-Muitos)**
+    * Um `User` pode ter várias `Transactions`.
+    * Uma `Transaction` pertence a apenas um `User`.
+
+* **Account ↔ Transactions (Um-para-Muitos)**
+    * Uma `Account` pode ter várias `Transactions`.
+    * Uma `Transaction` pertence a apenas uma `Account`.
+
+* **Category ↔ Transactions (Um-para-Muitos)**
+    * Uma `Category` pode ter várias `Transactions`.
+    * Uma `Transaction` pertence a apenas uma `Category`.
+
 ## 🛠️ Tecnologias Utilizadas
 
 Este projeto foi construído com as seguintes tecnologias:
