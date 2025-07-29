@@ -52,7 +52,7 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente de de
 
 1.  **Clone o repositório:**
     ```sh
-    git clone [https://github.com/seu-usuario/fintrack.git](https://github.com/seu-usuario/fintrack.git)
+    git clone [https://github.com/freitaszLe/fintrack.git](https://github.com/freitaszLe/fintrack.git)
     ```
 
 2.  **Navegue até o diretório do projeto:**
@@ -118,6 +118,6 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ## 📬 Contato
 
-Seu Nome - [@seu_linkedin](https://www.linkedin.com/in/seu-usuario/) - seu.email@exemplo.com
+Seu Nome - [@seu_linkedin](https://www.linkedin.com/in/freitaszLe/) - seu.email@exemplo.com
 
-Link do Projeto: [https://github.com/seu-usuario/fintrack](https://github.com/seu-usuario/fintrack)
+Link do Projeto: [https://github.com/freitaszLe/fintrack](https://github.com/freitaszLe/fintrack)
