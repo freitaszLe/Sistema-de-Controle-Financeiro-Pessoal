@@ -120,4 +120,4 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 Seu Nome - [@seu_linkedin](https://www.linkedin.com/in/freitaszLe/) - seu.email@exemplo.com
 
-Link do Projeto: [https://github.com/freitaszLe/fintrack](https://github.com/freitaszLe/fintrack)
+(Link do Projeto: [[https://github.com/freitaszLe/fintrack](https://github.com/freitaszLe/Sistema-de-Controle-Financeiro-Pessoal)]([https://github.com/freitaszLe/fintrack](https://github.com/freitaszLe/Sistema-de-Controle-Financeiro-Pessoal)))
