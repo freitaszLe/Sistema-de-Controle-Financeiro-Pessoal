@@ -58,4 +58,10 @@ class User extends Authenticatable
         // Um Usuário tem um Perfil
         return $this->hasOne(UserProfile::class);
     }
+
+    public function accounts()
+    {
+        // Um Usuário pode ter várias Contas
+        return $this->hasMany(Account::class);
+    }
 }
