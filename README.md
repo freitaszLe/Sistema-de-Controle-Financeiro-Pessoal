@@ -24,18 +24,33 @@ O FinTrack resolve isso centralizando todas as informações financeiras em um �
 
 ## 💾 Modelo do Banco de Dados (DER)
 
-A estrutura do banco de dados foi projetada para ser simples e eficiente, focando nas relações essenciais para o controle financeiro.
+A estrutura do banco de dados foi projetada para separar claramente os dados de autenticação, dados de perfil pessoal e dados financeiros.
 
 ### Tabela `users`
-Armazena as informações de login de cada usuário.
+Armazena as informações essenciais de login e autenticação.
 
 | Coluna | Tipo | Descrição |
 | :--- | :--- | :--- |
 | `id` | BIGINT (PK) | Identificador único do usuário. |
-| `name` | VARCHAR | Nome do usuário. |
+| `name` | VARCHAR | Nome de exibição ou primeiro nome do usuário. |
 | `email`| VARCHAR | E-mail de login, único. |
 | `password`| VARCHAR | Senha criptografada. |
 | `...` | ... | Outras colunas do Laravel. |
+
+### Tabela `user_profiles`
+Armazena os dados pessoais detalhados de cada usuário.
+
+| Coluna | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `id` | BIGINT (PK) | Identificador único do perfil. |
+| `user_id`| BIGINT (FK) | Vincula o perfil a um `users.id` (relação 1-para-1). |
+| `full_name` | VARCHAR | Nome completo do usuário. |
+| `birth_date`| DATE | Data de nascimento. |
+| `cpf` | VARCHAR | CPF do usuário, único. |
+| `nationality`| VARCHAR | Nacionalidade. |
+| `postal_code`| VARCHAR | CEP (Código de Endereçamento Postal). |
+| `gender` | VARCHAR | Sexo (ex: 'Masculino', 'Feminino', 'Outro'). |
+| `marital_status`| VARCHAR | Estado civil (ex: 'Solteiro(a)', 'Casado(a)'). |
 
 ### Tabela `accounts`
 Representa os locais onde o dinheiro do usuário está (ex: carteira, conta corrente).
@@ -73,6 +88,10 @@ O coração do sistema, onde cada receita e despesa é registrada.
 | `date` | DATE | Data em que a transação ocorreu. |
 
 ### Relacionamentos
+
+* **User ↔ UserProfile (Um-para-Um)**
+    * Um `User` tem um `UserProfile`.
+    * Um `UserProfile` pertence a apenas um `User`.
 
 * **User ↔ Accounts (Um-para-Muitos)**
     * Um `User` pode ter várias `Accounts`.
