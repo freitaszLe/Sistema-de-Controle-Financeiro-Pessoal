@@ -16,7 +16,11 @@
             <span class="mr-3">💳</span>
             Minhas Contas
         </a>
-        {{-- Futuros links (Categorias, Transações) entrarão aqui --}}
+        <a href="{{ route('categories.index') }}"
+            class="flex items-center px-4 py-2 mt-2 text-sm font-semibold rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('categories.*') ? 'bg-gray-700 text-white' : '' }}">
+            <span class="mr-3">🏷️</span>
+            Categorias
+        </a>
     </nav>
 </div>
 
