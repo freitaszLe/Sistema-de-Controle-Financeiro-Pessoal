@@ -64,4 +64,9 @@ class User extends Authenticatable
         // Um Usuário pode ter várias Contas
         return $this->hasMany(Account::class);
     }
+    public function categories()
+    {
+        // Um Usuário pode ter várias Categorias
+        return $this->hasMany(Category::class);
+    }
 }

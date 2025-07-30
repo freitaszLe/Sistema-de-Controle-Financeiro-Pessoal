@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/profile/personal', [ProfileController::class, 'updatePersonal'])->name('profile.update.personal');
     Route::resource('accounts', App\Http\Controllers\AccountController::class);
+    Route::resource('categories', App\Http\Controllers\CategoryController::class);
 });
 
 require __DIR__.'/auth.php';
