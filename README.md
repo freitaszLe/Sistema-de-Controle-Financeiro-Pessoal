@@ -1,3 +1,4 @@
+
 # FinTrack - Sistema de Controle Financeiro Pessoal
 
 ![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?style=for-the-badge&logo=laravel)
