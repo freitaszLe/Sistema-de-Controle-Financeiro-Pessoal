@@ -69,4 +69,8 @@ class User extends Authenticatable
         // Um Usuário pode ter várias Categorias
         return $this->hasMany(Category::class);
     }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
+    }
 }

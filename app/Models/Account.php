@@ -19,9 +19,8 @@ class Account extends Model
         return $this->belongsTo(User::class);
     }
 
-//    public function transactions()
-//    {
-        // Uma Conta pode ter muitas Transações
-//        return $this->hasMany(Transaction::class);
-//    }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
+    }
 }

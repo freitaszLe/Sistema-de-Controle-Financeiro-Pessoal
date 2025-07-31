@@ -18,6 +18,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/personal', [ProfileController::class, 'updatePersonal'])->name('profile.update.personal');
     Route::resource('accounts', App\Http\Controllers\AccountController::class);
     Route::resource('categories', App\Http\Controllers\CategoryController::class);
+    Route::resource('transactions', App\Http\Controllers\TransactionController::class);
+
 });
 
 require __DIR__.'/auth.php';
