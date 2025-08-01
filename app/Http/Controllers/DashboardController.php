@@ -13,22 +13,29 @@ use App\Models\User;
 class DashboardController extends Controller
 {
 
-    public function index(): View
-    {
-        // Pega as contas do usuário autenticado
-         $accounts = Auth::user()
+public function index(): View
+{
+    // Pega as contas do usuário autenticado e já calcula a soma de receitas e despesas
+    // para cada uma usando as otimizações do withSum.
+    $accounts = Auth::user()
         ->accounts()
-        ->withSum(['transactions as total_receitas' => fn ($query) => $query->where('type', 'receita')], 'amount')
-        ->withSum(['transactions as total_despesas' => fn ($query) => $query->where('type', 'despesa')], 'amount')
+        ->withSum('transactions as total_receitas', 'amount', function ($query) {
+            $query->where('type', 'receita');
+        })
+        ->withSum('transactions as total_despesas', 'amount', function ($query) {
+            $query->where('type', 'despesa');
+        })
         ->get();
 
+    // Calcula o saldo final para cada conta
+    $accounts->each(function ($account) {
+        $account->current_balance = $account->initial_balance 
+                                    + $account->total_receitas 
+                                    - $account->total_despesas;
+    });
 
-        $accounts->each(function ($account) {
-            $account->balance = $account->balance;
-        });
-
-        return view('dashboard', compact('accounts'));
-    }
+    return view('dashboard', compact('accounts'));
+}
 
 
     public function show(): View
