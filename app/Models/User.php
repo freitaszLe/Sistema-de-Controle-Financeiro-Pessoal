@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', 
     ];
 
     /**
@@ -31,6 +32,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function isAdmin(): bool
+    {
+        // Verifica se o usuário é um administrador
+        return $this->role === 'admin';
+    }
+
+
 
     /**
      * Get the attributes that should be cast.
@@ -68,5 +77,9 @@ class User extends Authenticatable
     {
         // Um Usuário pode ter várias Categorias
         return $this->hasMany(Category::class);
+    }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
     }
 }

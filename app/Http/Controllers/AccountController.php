@@ -10,13 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function index(): View
+        public function index(): View
     {
-        // Busca apenas as contas do usuário logado
-        $accounts = Auth::user()->accounts()->get();
-        return view('accounts.index', ['accounts' => $accounts]);
-    }
 
+        $accounts = Auth::user()
+            ->accounts()
+            ->withSum(['transactions as total_receitas' => fn ($q) => $q->where('type', 'receita')], 'amount')
+            ->withSum(['transactions as total_despesas' => fn ($q) => $q->where('type', 'despesa')], 'amount')
+            ->get();
+            
+        return view('accounts.index', compact('accounts'));
+    }
     public function create(): View
     {
         return view('accounts.create');
